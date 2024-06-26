@@ -1,7 +1,7 @@
 [
     {
         "kernelSource": {
-            "name": "MIX 2S",
+            "name": "MIX2S",
             "repo": "https://github.com/PixelExperience-Devices/kernel_xiaomi_polaris",
             "branch": "thirteen",
             "device": "polaris",
