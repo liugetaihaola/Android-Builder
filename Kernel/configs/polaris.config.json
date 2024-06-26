@@ -2,7 +2,7 @@
     {
         "kernelSource": {
             "name": "MIX2S",
-            "repo": "https://github.com/Initsnow/android_kernel_xiaomi_sdm845",
+            "repo": "https://github.com/LineageOS/android_kernel_xiaomi_sdm845",
             "branch": "lineage-21",
             "device": "polaris",
             "defconfig": "vendor/xiaomi/mi845_defconfig"
@@ -52,6 +52,8 @@
                 "LDGOLD": "aarch64-linux-gnu-ld.gold",
                 "LLVM_AR": "llvm-ar",
                 "LLVM_DIS": "llvm-dis",
+                "LLVM_IAS": "1",
+                "LLVM": "1",
                 "CONFIG_THINLTO": ""
             }
         },
