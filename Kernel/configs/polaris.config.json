@@ -2,10 +2,10 @@
     {
         "kernelSource": {
             "name": "MIX2S",
-            "repo": "https://github.com/liugetaihaola/android_kernel_xiaomi_sdm845",
+            "repo": "https://github.com/Initsnow/android_kernel_xiaomi_sdm845",
             "branch": "lineage-21",
             "device": "polaris",
-            "defconfig": "vendor/xiaomi/polaris_defconfig"
+            "defconfig": "vendor/xiaomi/mi845_defconfig"
         },
         "toolchains": [
             {
