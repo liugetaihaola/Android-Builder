@@ -241,6 +241,8 @@ jobs:
             rm -rf "./drivers/kernelsu"
           fi
 
+          cat arch/${{ env.ARCH }}/configs/vendor/xiaomi/mi845_defconfig > arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
+          cat arch/${{ env.ARCH }}/configs/vendor/xiaomi/polaris.config >> arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
           # Apply new KernelSU patches
           curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 
