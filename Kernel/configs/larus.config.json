@@ -1,11 +1,11 @@
 [
     {
         "kernelSource": {
-            "name": "Mi CC 9e",
-            "repo": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource",
-            "branch": "laurus-q-oss",
-            "device": "laurus-q-oss",
-            "defconfig": "vendor/wayne_defconfig"
+            "name": "MIX 2S",
+            "repo": "https://github.com/PixelExperience-Devices/kernel_xiaomi_polaris",
+            "branch": "thirteen",
+            "device": "polaris",
+            "defconfig": "polaris_defconfig"
         },
         "toolchains": [
             {
