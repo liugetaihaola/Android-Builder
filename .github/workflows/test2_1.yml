@@ -438,6 +438,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: ${{ env.USE_ANYKERNEL3 == 'true' && env.CONFIRM_RELEASE == 'true' }}
         with:
-          tag_name: v${{ env.BUILD_DATE }}.${{ github.run_number }}
+          tag_name: v${{ env.BUILD_DATE }}.${{ github.run_number }}.test2_1
           files: "${{ env.ANYKERNEL3_FILE }}.zip"
           generate_release_notes: true
