@@ -267,15 +267,7 @@ jobs:
 
           # Apply patch
           if [ -f kernel/cgroup.c ]; then
-            row=$(sed -n -e '/^static int cgroup_add_file/=' kernel/cgroup.c)
-            touch /tmp/tmp.txt
-            sed -n -e '/static int cgroup_add_file/,/return 0/p' kernel/cgroup.c >> /tmp/tmp.txt
-            row2=$(sed -n -e '/return 0/=' /tmp/tmp.txt)
-            row3=$(echo `expr $row + $row2 - 1`)
-            sed -i "$row3 i\        }" kernel/cgroup.c
-            sed -i "$row3 i\                kernfs_create_link(cgrp->kn, name, kn);" kernel/cgroup.c
-            sed -i "$row3 i\                snprintf(name, CGROUP_FILE_NAME_MAX, \"%s.%s\", cft->ss->name, cft->name);" kernel/cgroup.c
-            sed -i "$row3 i\        if (cft->ss && (cgrp->root->flags & CGRP_ROOT_NOPREFIX) && !(cft->flags & CFTYPE_NO_PREFIX)) {" kernel/cgroup.c
+            git am -s < ${{ env.WORKSPACE }}/LXC/Patches/cgroup.patch
             echo "🎖️ Modify kernel/cgroup.c"
           fi
           if [ -f kernel/cgroup/cgroup.c ]; then
