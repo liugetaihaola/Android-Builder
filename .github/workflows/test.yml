@@ -240,13 +240,19 @@ jobs:
           if [ -d "./drivers/kernelsu" ]; then
             rm -rf "./drivers/kernelsu"
           fi
+          
+          cat arch/${{ env.ARCH }}/configs/vendor/xiaomi/mi845_defconfig > arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
+          cat arch/${{ env.ARCH }}/configs/vendor/xiaomi/polaris.config >> arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
 
           # Apply new KernelSU patches
-          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+          #curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
 
+          echo -e "CONFIG_MODULES=y" >> arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
           echo -e "CONFIG_KPROBES=y" >> arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
           echo -e "CONFIG_HAVE_KPROBES=y" >> arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
           echo -e "CONFIG_KPROBE_EVENTS=y" >> arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
+          echo -e "CONFIG_OVERLAY_FS=y" >> arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
 
           cat arch/${{ env.ARCH }}/configs/${{ env.KERNEL_DEFCONFIG_PATH }}
 
@@ -270,10 +276,11 @@ jobs:
             sed -n -e '/static int cgroup_add_file/,/return 0/p' kernel/cgroup.c >> /tmp/tmp.txt
             row2=$(sed -n -e '/return 0/=' /tmp/tmp.txt)
             row3=$(echo `expr $row + $row2 - 1`)
-            sed -i "$row3 i\        }" kernel/cgroup.c
-            sed -i "$row3 i\                kernfs_create_link(cgrp->kn, name, kn);" kernel/cgroup.c
-            sed -i "$row3 i\                snprintf(name, CGROUP_FILE_NAME_MAX, \"%s.%s\", cft->ss->name, cft->name);" kernel/cgroup.c
-            sed -i "$row3 i\        if (cft->ss && (cgrp->root->flags & CGRP_ROOT_NOPREFIX) && !(cft->flags & CFTYPE_NO_PREFIX)) {" kernel/cgroup.c
+            sed -i "$row3 i\    " kernel/cgroup.c
+            sed -i "$row3 i\    }" kernel/cgroup.c
+            sed -i "$row3 i\        kernfs_create_link(cgrp->kn, name, kn);" kernel/cgroup.c
+            sed -i "$row3 i\        snprintf(name, CGROUP_FILE_NAME_MAX, \"%s.%s\", cft->ss->name, cft->name);" kernel/cgroup.c
+            sed -i "$row3 i\    if (cft->ss && (cgrp->root->flags & CGRP_ROOT_NOPREFIX) && !(cft->flags & CFTYPE_NO_PREFIX)) {" kernel/cgroup.c
             echo "🎖️ Modify kernel/cgroup.c"
           fi
           if [ -f kernel/cgroup/cgroup.c ]; then
@@ -282,10 +289,11 @@ jobs:
             sed -n -e '/static int cgroup_add_file/,/return 0/p' kernel/cgroup/cgroup.c >> /tmp/tmp.txt
             row2=$(sed -n -e '/return 0/=' /tmp/tmp.txt)
             row3=$(echo `expr $row + $row2 - 1`)
-            sed -i "$row3 i\        }" kernel/cgroup/cgroup.c
-            sed -i "$row3 i\                kernfs_create_link(cgrp->kn, name, kn);" kernel/cgroup/cgroup.c
-            sed -i "$row3 i\                snprintf(name, CGROUP_FILE_NAME_MAX, \"%s.%s\", cft->ss->name, cft->name);" kernel/cgroup/cgroup.c
-            sed -i "$row3 i\        if (cft->ss && (cgrp->root->flags & CGRP_ROOT_NOPREFIX) && !(cft->flags & CFTYPE_NO_PREFIX)) {" kernel/cgroup/cgroup.c
+            sed -i "$row3 i\    " kernel/cgroup.c
+            sed -i "$row3 i\    }" kernel/cgroup/cgroup.c
+            sed -i "$row3 i\        kernfs_create_link(cgrp->kn, name, kn);" kernel/cgroup/cgroup.c
+            sed -i "$row3 i\        snprintf(name, CGROUP_FILE_NAME_MAX, \"%s.%s\", cft->ss->name, cft->name);" kernel/cgroup/cgroup.c
+            sed -i "$row3 i\    if (cft->ss && (cgrp->root->flags & CGRP_ROOT_NOPREFIX) && !(cft->flags & CFTYPE_NO_PREFIX)) {" kernel/cgroup/cgroup.c
             echo "🎖️ Modify kernel/cgroup/cgroup.c"
           fi
           if [ -f android-kernel/net/netfilter/xt_qtaguid.c ]; then
