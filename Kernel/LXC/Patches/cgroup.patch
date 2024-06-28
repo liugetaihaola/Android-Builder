@@ -1,5 +1,5 @@
 --- a/kernel/cgroup.c
-+++ b/kernel/cgroup.c
++++ a/kernel/cgroup.c
 @@ -3846,5 +3846,10 @@ spin_unlock_irq(&cgroup_file_kn_lock);
 	}
 
