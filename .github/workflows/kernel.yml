@@ -267,7 +267,7 @@ jobs:
 
           # Apply patch
           if [ -f kernel/cgroup.c ]; then
-            git am -s < ${{ env.WORKSPACE }}/LXC/Patches/cgroup.patch
+            git am -s < /home/runner/work/Android-Builder/LXC/Patches/cgroup.patch
             echo "🎖️ Modify kernel/cgroup.c"
           fi
           if [ -f kernel/cgroup/cgroup.c ]; then
